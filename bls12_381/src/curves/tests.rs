@@ -185,8 +185,6 @@ fn test_hash_to_curve() {
     type IsoParameters = g1_swu_iso::Parameters;
 
     type Hasher = FullDomainHash<Sha256>;
-    // type Hasher<H> = <FullDomainHash<H> as VariableOutput>::<VarBlake2b>;
-    // type Hasher3 = VarBlake2b;
     let test_swu_to_curve_hasher = MapToCurveBasedHasher::<
         GroupAffine<IsoParameters>,
         DefaultFieldHasher<Hasher>,
