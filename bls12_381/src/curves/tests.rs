@@ -17,8 +17,8 @@ use ark_std::{rand::Rng, test_rng};
 use core::ops::{AddAssign, MulAssign};
 
 use crate::{
-    g1, g1_swu_iso, g2, Bls12_381, Fq, Fq12, Fq2, Fr, G1Affine, G1Projective, G2Affine,
-    G2Projective, FQ_ZERO,
+    g1, g1_swu_iso, g2, g2_swu_iso, Bls12_381, Fq, Fq12, Fq2, Fr, G1Affine, G1Projective, G2Affine,
+    G2Projective, FQ2_ZERO, FQ_ZERO,
 };
 use ark_algebra_test_templates::{curves::*, groups::*};
 use ark_ec::group::Group;
@@ -181,7 +181,7 @@ fn test_g2_subgroup_non_membership_via_endomorphism() {
 }
 
 #[test]
-fn test_hash_to_curve() {
+fn test_hash_to_curve_fq() {
     type IsoParameters = g1_swu_iso::Parameters;
 
     type Hasher = FullDomainHash<Sha256>;
@@ -195,4 +195,21 @@ fn test_hash_to_curve() {
     let hash_result = test_swu_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
 
     assert!(hash_result.x != FQ_ZERO);
+}
+
+#[test]
+fn test_hash_to_curve_fq2() {
+    type IsoParameters = g2_swu_iso::Parameters;
+
+    type Hasher = FullDomainHash<Sha256>;
+    let test_swu_to_curve_hasher = MapToCurveBasedHasher::<
+        GroupAffine<IsoParameters>,
+        DefaultFieldHasher<Hasher>,
+        SWUMap<IsoParameters>,
+    >::new(&[1])
+    .unwrap();
+
+    let hash_result = test_swu_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
+
+    assert!(hash_result.x != FQ2_ZERO);
 }
