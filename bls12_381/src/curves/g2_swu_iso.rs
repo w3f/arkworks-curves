@@ -1,8 +1,8 @@
 use crate::*;
 use ark_ec::models::{ModelParameters, SWModelParameters};
-use ark_ff::{field_new};
+use ark_ff::field_new;
 
-use ark_ec::hashing::curve_maps::swu::{SWUParams};
+use ark_ec::hashing::curve_maps::swu::SWUParams;
 
 #[derive(Clone, Default, PartialEq, Eq)]
 pub struct Parameters;
@@ -15,11 +15,11 @@ impl ModelParameters for Parameters {
 // https://datatracker.ietf.org/doc/draft-irtf-cfrg-hash-to-curve/
 // Hashing to Elliptic Curves
 // 8.8.2.  BLS12-381 G2
-//   *  E': y'^2 = x'^3 + A' * x' + B', where
+//   * E': y'^2 = x'^3 + A' * x' + B', where
 //
-//      -  A' = 240 * I
+//      - A' = 240 * I
 //
-//      -  B' = 1012 * (1 + I)
+//      - B' = 1012 * (1 + I)
 //
 //   * Z: -(2 + I)
 
@@ -30,8 +30,8 @@ impl SWModelParameters for Parameters {
     /// COEFF_B = [1012, 1012]
     const COEFF_B: Fq2 = field_new!(Fq2, field_new!(Fq, "1012"), field_new!(Fq, "1012"),);
 
-    //sage: g2_iso.codomain().order() == g2_iso.domain().order()
-    //True
+    // sage: g2_iso.codomain().order() == g2_iso.domain().order()
+    // True
     /// COFACTOR = (x^8 - 4 x^7 + 5 x^6) - (4 x^4 + 6 x^3 - 4 x^2 - 4 x + 13) //
     /// 9
     /// = 305502333931268344200999753193121504214466019254188142667664032982267604182971884026507427359259977847832272839041616661285803823378372096355777062779109
@@ -55,7 +55,6 @@ impl SWModelParameters for Parameters {
     /// AFFINE_GENERATOR_COEFFS = (G2_GENERATOR_X, G2_GENERATOR_Y)
     const AFFINE_GENERATOR_COEFFS: (Self::BaseField, Self::BaseField) =
         (G2_GENERATOR_X, G2_GENERATOR_Y);
-
 }
 
 pub const G2_GENERATOR_X: Fq2 = field_new!(Fq2, G2_GENERATOR_X_C0, G2_GENERATOR_X_C1);
@@ -93,10 +92,9 @@ pub const G2_GENERATOR_Y_C1: Fq = field_new!(Fq, "347020557560111175564150279686
 // sage: Xi == -Zeta
 // True
 // sage: (Xi/Zeta).square_root()
-//X
-impl SWUParams for Parameters {    
-    const XI : Fq2 = field_new!(Fq2, field_new!(Fq, "-2"), field_new!(Fq, "-1"),); //a nonsquare in Fq ietf standard
-    const ZETA: Fq2 = field_new!(Fq2, field_new!(Fq, "2"), field_new!(Fq, "1"),);  //arbitatry primitive root of unity (element)
+// X
+impl SWUParams for Parameters {
+    const XI: Fq2 = field_new!(Fq2, field_new!(Fq, "-2"), field_new!(Fq, "-1"),); // a nonsquare in Fq ietf standard
+    const ZETA: Fq2 = field_new!(Fq2, field_new!(Fq, "2"), field_new!(Fq, "1"),); // arbitatry primitive root of unity (element)
     const XI_ON_ZETA_SQRT: Fq2 = field_new!(Fq2, field_new!(Fq, "0"), field_new!(Fq, "1"),); ////square root of THETA=Xi/Zeta
-
 }

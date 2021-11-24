@@ -2,13 +2,13 @@ use crate::*;
 use ark_ec::{
     bls12,
     bls12::Bls12Parameters,
+    hashing::curve_maps::wb::WBParams,
     models::{ModelParameters, SWModelParameters},
     short_weierstrass_jacobian::GroupAffine,
     AffineCurve, ProjectiveCurve,
 };
 use ark_ff::{biginteger::BigInteger256, field_new, Zero};
 use ark_std::ops::Neg;
-use ark_ec::hashing::curve_maps::wb::WBParams;
 
 use super::g1_swu_iso::Parameters as SWUIsogenousCurveParameters;
 
@@ -56,7 +56,8 @@ impl SWModelParameters for Parameters {
         let x = BigInteger256::new([crate::Parameters::X[0], 0, 0, 0]);
 
         // An early-out optimization described in Section 6.
-        // If uP == P but P != point of infinity, then the point is not in the right subgroup.
+        // If uP == P but P != point of infinity, then the point is not in the right
+        // subgroup.
         let x_times_p = p.mul(x);
         if x_times_p.eq(p) && !p.infinity {
             return false;
@@ -83,14 +84,14 @@ pub const BETA: Fq = field_new!(Fq, "7934793907292155126213797016334214470608867
 
 pub fn endomorphism(p: &GroupAffine<Parameters>) -> GroupAffine<Parameters> {
     // Endomorphism of the points on the curve.
-    // endomorphism_p(x,y) = (BETA * x, y) where BETA is a non-trivial cubic root of unity in Fq.
+    // endomorphism_p(x,y) = (BETA * x, y) where BETA is a non-trivial cubic root of
+    // unity in Fq.
     let mut res = (*p).clone();
     res.x *= BETA;
     res
 }
 
-impl WBParams for Parameters
-{
+impl WBParams for Parameters {
     type IsogenousCurve = SWUIsogenousCurveParameters;
 
     const PHI_X_NOM: &'static [<Self::IsogenousCurve as ModelParameters>::BaseField] = &[
@@ -107,7 +108,7 @@ impl WBParams for Parameters
         field_new!(Fq, "2756657124183929639940341559332863560985099912924783743137983687385942647530234634138642360072966950403354118194880"), 
         field_new!(Fq, "1058488477413994682556770863004536636444795456512795473806825292198091015005841418695586811009326456605062948114985"),
     ];
-    
+
     const PHI_X_DEN: &'static [<Self::IsogenousCurve as ModelParameters>::BaseField] = &[
         field_new!(Fq, "3949438676361386880769263910006560135979986067074971624024178233787093666769860448538216069627988502376148329127381"), 
         field_new!(Fq, "2822220997908397120956501031591772354860004534930174057793539372552395729721474912921980407622851861692773516917759"), 
@@ -121,7 +122,7 @@ impl WBParams for Parameters
         field_new!(Fq, "1355518942857092779104773143196445884975815408961178437135200875404433360418847982032652351120700883660623679118159"), 
         field_new!(Fq, "1"),
     ];
-    
+
     const PHI_Y_NOM: &'static [<Self::IsogenousCurve as ModelParameters>::BaseField] = &[
         field_new!(Fq, "1393399195776646641963150658816615410692049723305861307490980409834842911816308830479576739332720113414154429643571"), 
         field_new!(Fq, "1511190695657960398963160955727174407082178148587899660611396357887273149842318573217989398009716786569780748006283"), 
@@ -140,7 +141,7 @@ impl WBParams for Parameters
         field_new!(Fq, "2922895688438869655803185556286420403397802691723657346548307498540648684066474272936979722182960006715481007746439"), 
         field_new!(Fq, "3370924952219000111210625390420697640496067348723987858345031683392215988129398381698161406651860675722373763741188"),
     ];
-    
+
     const PHI_Y_DEN: &'static [<Self::IsogenousCurve as ModelParameters>::BaseField] = &[
         field_new!(Fq, "3396434800020507717552209507749485772788165484415495716688989613875369612529138640646200921379825018840894888371137"), 
         field_new!(Fq, "3955937245707125245654875920344947126613343076099634862876498453376019064171085472617926084668015244086355452990926"), 
