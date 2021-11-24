@@ -14,15 +14,28 @@ edition = "2018"
 
 [dependencies]
 #ark-ff = { version="^0.3.0", default-features = false }
-ark-ff = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
+ark-ff = { git = "https://github.com/mmagician/algebra", branch = 'mmagician/cosmetic-fixes', default-features = false }
+# ark-ff = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
+# ark-ff = { path = "/Users/marcin/personal/arkworks/algebra/ff", default-features = false }
 #ark-ec = { version="^0.3.0", default-features = false }
-ark-ec = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = true } #needs digest for hashing
+# ark-ec = { path = "/Users/marcin/personal/arkworks/algebra/ec", version = "^0.3.0", default-features = true }
+ark-ec = { git = "https://github.com/mmagician/algebra", branch = 'mmagician/cosmetic-fixes', default-features = true } #needs digest for hashing
+# ark-ec = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = true } #needs digest for hashing
 ark-std = { version="^0.3.0", default-features = false }
 
 [dev-dependencies]
 #ark-serialize = { version="^0.3.0", default-features = false }
-ark-serialize = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
-ark-algebra-test-templates = { version="^0.3.0", default-features = false }
+ark-serialize = { git = "https://github.com/mmagician/algebra", branch = 'mmagician/cosmetic-fixes', default-features = false }
+# ark-serialize = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
+# ark-serialize = { path = "/Users/marcin/personal/arkworks/algebra/serialize", default-features = false }
+# ark-algebra-test-templates = { version="^0.3.0", default-features = false }
+ark-algebra-test-templates = { git = "https://github.com/mmagician/algebra", branch = 'mmagician/cosmetic-fixes', default-features = false }
+# ark-algebra-test-templates = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
+# ark-algebra-test-templates = { path = "/Users/marcin/personal/arkworks/algebra/test-templates", default-features = false }
+blake2 = "0.9.2"
+sha3 = "^0.9"
+fdh = "^0.7"
+sha2 = "^0.9"
 
 [features]
 default = [ "curve" ]

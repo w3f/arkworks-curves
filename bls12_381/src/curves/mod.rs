@@ -5,8 +5,8 @@ use crate::{Fq, Fq12Parameters, Fq2Parameters, Fq6Parameters};
 pub mod g1;
 pub mod g2;
 
-mod g1_swu_iso;
-mod g2_swu_iso;
+pub mod g1_swu_iso;
+pub mod g2_swu_iso;
 
 #[cfg(test)]
 mod tests;
