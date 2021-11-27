@@ -184,7 +184,7 @@ fn test_g2_subgroup_non_membership_via_endomorphism() {
 fn test_hash_to_curve_fq() {
     type IsoParameters = g1_swu_iso::Parameters;
 
-    type Hasher = FullDomainHash<Sha256>;
+    type Hasher = Sha256;
     let test_swu_to_curve_hasher = MapToCurveBasedHasher::<
         GroupAffine<IsoParameters>,
         DefaultFieldHasher<Hasher>,
@@ -201,7 +201,7 @@ fn test_hash_to_curve_fq() {
 fn test_hash_to_curve_fq2() {
     type IsoParameters = g2_swu_iso::Parameters;
 
-    type Hasher = FullDomainHash<Sha256>;
+    type Hasher = Sha256;
     let test_swu_to_curve_hasher = MapToCurveBasedHasher::<
         GroupAffine<IsoParameters>,
         DefaultFieldHasher<Hasher>,
