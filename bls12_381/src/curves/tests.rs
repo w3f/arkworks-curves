@@ -22,7 +22,6 @@ use crate::{
 };
 use ark_algebra_test_templates::{curves::*, groups::*};
 use ark_ec::group::Group;
-use fdh::{FullDomainHash, VariableOutput};
 use sha2::Sha256;
 
 #[test]

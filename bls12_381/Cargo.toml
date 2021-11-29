@@ -24,9 +24,6 @@ ark-std = { version="^0.3.0", default-features = false }
 ark-serialize = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
 # ark-algebra-test-templates = { version="^0.3.0", default-features = false }
 ark-algebra-test-templates = { git = "https://github.com/w3f/arkworks-algebra", branch = 'hash_to_curve_wb', default-features = false }
-blake2 = "0.9.2"
-sha3 = "^0.9"
-fdh = "^0.7"
 sha2 = "^0.9"
 
 [features]
