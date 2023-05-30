@@ -22,6 +22,7 @@ ark-serialize = { version = "0.4.0-alpha", default-features = false }
 ark-algebra-test-templates = { version = "0.4.0-alpha", default-features = false }
 ark-algebra-bench-templates = { version = "0.4.0-alpha", default-features = false }
 hex = "^0.4.0"
+sha2 = { version = "0.10", default-features = false }
 
 [features]
 default = [ "curve" ]

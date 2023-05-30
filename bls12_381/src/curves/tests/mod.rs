@@ -117,3 +117,26 @@ fn g2_uncompressed_valid_test_vectors() {
     let bytes: &'static [u8] = include_bytes!("g2_uncompressed_valid_test_vectors.dat");
     test_vectors!(G2Projective, G2Affine, Compress::No, bytes);
 }
+
+#[test]
+fn test_hash_to_g2() {
+    use sha2::Sha256;
+    use ark_ec::hashing::curve_maps::wb::{WBMap};
+    use ark_ec::hashing::{
+	map_to_curve_hasher::{MapToCurve, MapToCurveBasedHasher},
+	HashToCurve,
+    };
+
+    use ark_ff::field_hashers::DefaultFieldHasher;
+    
+        let test_wb_to_curve_hasher = MapToCurveBasedHasher::<
+            G2Projective,
+            DefaultFieldHasher<Sha256, 128>,
+            WBMap<G2Projective>,
+        >::new(&[1])
+        .unwrap();
+
+        let hash_result = test_wb_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
+
+
+}
