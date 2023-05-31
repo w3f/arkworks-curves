@@ -125,7 +125,7 @@ fn test_hash_to_g2() {
     use sha2::Sha256;
     use ark_ec::hashing::curve_maps::wb::{WBMap};
     use ark_ec::hashing::{
-	map_to_curve_hasher::{MapToCurve, MapToCurveBasedHasher},
+	map_to_curve_hasher::{MapToCurveBasedHasher},
 	HashToCurve,
     };
 
@@ -134,11 +134,69 @@ fn test_hash_to_g2() {
         let test_wb_to_curve_hasher = MapToCurveBasedHasher::<
             G2Projective,
             DefaultFieldHasher<Sha256, 128>,
-            WBMap<G2Projective>,
+            WBMap<crate::g2::Config>,
         >::new(&[1])
         .unwrap();
 
-        let hash_result = test_wb_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
+        let _hash_result = test_wb_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
 
+
+}
+
+extern crate test;
+use test::{Bencher, black_box};
+#[bench]
+fn bench_100_hash_to_g2(b: &mut Bencher) {
+    use sha2::Sha256;
+    use ark_ec::hashing::curve_maps::wb::{WBMap};
+    use ark_ec::hashing::{
+	map_to_curve_hasher::{MapToCurveBasedHasher},
+	HashToCurve,
+    };
+
+    use ark_ff::field_hashers::DefaultFieldHasher;
+
+    
+        let test_wb_to_curve_hasher = MapToCurveBasedHasher::<
+            G2Projective,
+            DefaultFieldHasher<Sha256, 128>,
+            WBMap<crate::g2::Config>,
+        >::new(&[1])
+        .unwrap();
+
+        b.iter(|| {
+            // Inner closure, the actual test
+            for _i in 1..100 {
+                let _ = black_box(test_wb_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve"));
+            }
+        });
+
+}
+
+#[bench]
+fn bench_100_hash_to_g1(b: &mut Bencher) {
+    use sha2::Sha256;
+    use ark_ec::hashing::curve_maps::wb::{WBMap};
+    use ark_ec::hashing::{
+	map_to_curve_hasher::{MapToCurveBasedHasher},
+	HashToCurve,
+    };
+
+    use ark_ff::field_hashers::DefaultFieldHasher;
+
+    
+        let test_wb_to_curve_hasher = MapToCurveBasedHasher::<
+            G1Projective,
+            DefaultFieldHasher<Sha256, 128>,
+            WBMap<crate::g1::Config>,
+        >::new(&[1])
+        .unwrap();
+
+        b.iter(|| {
+            // Inner closure, the actual test
+            for _i in 1..100 {
+                let _ = black_box(test_wb_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve"));
+            }
+        });
 
 }
