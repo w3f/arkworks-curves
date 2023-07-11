@@ -1,9 +1,12 @@
 use ark_ec::{
+    hashing::curve_maps::elligator2::Elligator2Config,
     models::CurveConfig,
     short_weierstrass::{self, SWCurveConfig},
     twisted_edwards::{Affine, MontCurveConfig, Projective, TECurveConfig},
+    AdditiveGroup,
 };
-use ark_ff::{Field, MontFp};
+
+use ark_ff::MontFp;
 
 use crate::{Fq, Fr};
 
@@ -136,4 +139,39 @@ impl SWCurveConfig for BandersnatchConfig {
 
     /// generators
     const GENERATOR: SWAffine = SWAffine::new_unchecked(SW_GENERATOR_X, SW_GENERATOR_Y);
+}
+
+// Elligator hash to curve Bandersnatch
+// sage: find_z_ell2(GF(52435875175126190479447740508185965837690552500527637822603658699938581184513))
+// 5
+impl Elligator2Config for BandersnatchConfig {
+    const Z: Fq = MontFp!("5");
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use ark_ec::hashing::{
+        curve_maps::elligator2::Elligator2Map, map_to_curve_hasher::MapToCurveBasedHasher,
+        HashToCurve,
+    };
+    use ark_ff::field_hashers::DefaultFieldHasher;
+    use sha2::Sha512;
+
+    #[test]
+    fn test_hash2curve_hashes_to_curve() {
+        let test_elligator2_to_curve_hasher = MapToCurveBasedHasher::<
+            Projective<BandersnatchConfig>,
+            DefaultFieldHasher<Sha512, 128>,
+            Elligator2Map<BandersnatchConfig>,
+        >::new(&[1])
+        .unwrap();
+
+        let hash_result = test_elligator2_to_curve_hasher.hash(b"if you stick a Babel fish in your ear you can instantly understand anything said to you in any form of language.").expect("fail to hash the string to curve");
+
+        assert!(
+            hash_result.is_on_curve(),
+            "hash results into a point off the curve"
+        );
+    }
 }

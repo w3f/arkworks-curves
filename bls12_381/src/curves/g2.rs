@@ -6,7 +6,7 @@ use ark_ec::{
     hashing::curve_maps::wb::{IsogenyMap, WBConfig},
     models::CurveConfig,
     short_weierstrass::{Affine, Projective, SWCurveConfig},
-    AffineRepr, CurveGroup, Group,
+    AdditiveGroup, AffineRepr, CurveGroup, PrimeGroup,
 };
 use ark_ff::{Field, MontFp, Zero};
 use ark_serialize::{Compress, SerializationError};
@@ -206,7 +206,7 @@ pub const G2_GENERATOR_Y_C1: Fq = MontFp!("9275536654923324557472019657760378807
 
 // PSI_X = 1/(u+1)^((p-1)/3)
 const P_POWER_ENDOMORPHISM_COEFF_0 : Fq2 = Fq2::new(
-    Fq::ZERO,
+    MontFp!("0"),
     MontFp!(
                 "4002409555221667392624310435006688643935503118305586438271171395842971157480381377015405980053539358417135540939437"
     )
@@ -223,7 +223,7 @@ const P_POWER_ENDOMORPHISM_COEFF_1: Fq2 = Fq2::new(
 // PSI_2_X = (u+1)^((1-p^2)/3)
 const DOUBLE_P_POWER_ENDOMORPHISM_COEFF_0: Fq2 = Fq2::new(
     MontFp!("4002409555221667392624310435006688643935503118305586438271171395842971157480381377015405980053539358417135540939436"),
-    Fq::ZERO
+    MontFp!("0"),
 );
 
 /// psi(P) is the untwist-Frobenius-twist endomorhism on E'(Fq2)

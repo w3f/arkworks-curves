@@ -66,9 +66,16 @@ debug-assertions = true
 debug = true
 
 [patch.crates-io]
-ark-ff = { git = "https://github.com/arkworks-rs/algebra/" }
-ark-ec = { git = "https://github.com/arkworks-rs/algebra/" }
-ark-poly = { git = "https://github.com/arkworks-rs/algebra/" }
-ark-serialize = { git = "https://github.com/arkworks-rs/algebra/" }
-ark-algebra-test-templates = { git = "https://github.com/arkworks-rs/algebra/" }
-ark-r1cs-std = { git = "https://github.com/arkworks-rs/r1cs-std/" }
+ark-ff = { git = "https://github.com/w3f/arkworks-algebra/", branch="skalman-elligator" }
+ark-ec = { git = "https://github.com/w3f/arkworks-algebra/", branch="skalman-elligator" }
+ark-poly = { git = "https://github.com/w3f/arkworks-algebra/", branch="skalman-elligator" }
+ark-serialize = { git = "https://github.com/w3f/arkworks-algebra/", branch="skalman-elligator"}
+ark-algebra-test-templates = { git = "https://github.com/w3f/arkworks-algebra/", branch="skalman-elligator" }
+ark-r1cs-std = { git = "https://github.com/mmaker/ark-r1cs-std/", branch="feature/additive-groups" }
+
+# ark-ff = { git = "https://github.com/arkworks-rs/algebra/"}
+# ark-ec = { git = "https://github.com/arkworks-rs/algebra/"}
+# ark-poly = { git = "https://github.com/arkworks-rs/algebra/" }
+# ark-serialize = { git = "https://github.com/arkworks-rs/algebra/" }
+# ark-algebra-test-templates = { git = "https://github.com/arkworks-rs/algebra/" }
+# ark-r1cs-std = { git = "https://github.com/arkworks-rs/r1cs-std/" }

@@ -4,9 +4,9 @@ use ark_ec::{
     hashing::curve_maps::wb::{IsogenyMap, WBConfig},
     models::CurveConfig,
     short_weierstrass::{Affine, SWCurveConfig},
-    AffineRepr, Group,
+    AffineRepr, PrimeGroup,
 };
-use ark_ff::{Field, MontFp, PrimeField, Zero};
+use ark_ff::{MontFp, PrimeField, Zero};
 use ark_serialize::{Compress, SerializationError};
 use ark_std::{ops::Neg, One};
 
@@ -39,7 +39,7 @@ impl CurveConfig for Config {
 
 impl SWCurveConfig for Config {
     /// COEFF_A = 0
-    const COEFF_A: Fq = Fq::ZERO;
+    const COEFF_A: Fq = MontFp!("0");
 
     /// COEFF_B = 4
     const COEFF_B: Fq = MontFp!("4");
